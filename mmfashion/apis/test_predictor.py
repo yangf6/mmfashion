@@ -55,7 +55,7 @@ def _non_dist_test_attr(model, dataset, cfg, validate=False):
 
     print('dataloader built')
 
-    model = MMDataParallel(model, device_ids=cfg.gpus.test).cuda()
+    model = MMDataParallel(model, device_ids=[0]).cuda()
     model.eval()
 
     attr_calculator = AttrCalculator(cfg)

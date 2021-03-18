@@ -7,7 +7,7 @@ from mmcv.runner import load_checkpoint
 from mmfashion.apis import get_root_logger, init_dist, test_predictor
 from mmfashion.datasets.utils import get_dataset
 from mmfashion.models import build_predictor
-
+import os
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -25,7 +25,7 @@ def parse_args():
         '--validate',
         action='store_true',
         help='whether to evaluate the checkpoint during training',
-        default=True)
+        default=False)
     parser.add_argument(
         '--launcher',
         choices=['none', 'pytorch', 'mpi', 'slurm'],
@@ -36,6 +36,7 @@ def parse_args():
 
 
 def main():
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     args = parse_args()
     cfg = Config.fromfile(args.config)
     if args.work_dir is not None:
